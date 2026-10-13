@@ -1,10 +1,9 @@
 ### GET request to example server
-POST http://localhost:8080/user/register
+POST http://localhost:8080/auth/signin
 Content-Type: application/json
 
 {
   "id": "test123",
-  "password": "1234",
-  "username": "홍길동"
+  "password": "1234"
 }
 ###
