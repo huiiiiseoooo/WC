@@ -1,4 +1,14 @@
-### GET request to example server
+### 1. 회원가입 (test123이 이미 DB에 있으면 400/500 에러가 나도 정상, 건너뛰어도 됨)
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+  "id": "test123",
+  "password": "1234",
+  "username": "테스트"
+}
+
+### 2. 로그인 → 응답의 token을 {{token}} 변수에 자동 저장
 POST http://localhost:8080/auth/signin
 Content-Type: application/json
 
@@ -6,4 +16,16 @@ Content-Type: application/json
   "id": "test123",
   "password": "1234"
 }
-###
+
+> {% client.global.set("token", response.body.token); %}
+
+### 3. 내 정보 조회 - 토큰 없이 (기대: 403)
+GET http://localhost:8080/user/me
+
+### 4. 내 정보 조회 - 토큰 넣고 (기대: 200 + 아이디/권한) ※ 2번을 먼저 실행해야 함
+GET http://localhost:8080/user/me
+Authorization: Bearer {{token}}
+
+### 5. 내 정보 조회 - 위조된 토큰 (기대: 403, 500이면 필터 예외 처리 확인)
+GET http://localhost:8080/user/me
+Authorization: Bearer this.is.fake
