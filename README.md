@@ -145,9 +145,8 @@ User
 
 ```text
 id
-email
 password
-name
+username
 role
 ```
 
@@ -169,6 +168,7 @@ id
 user_id
 store_id
 role
+hourly_wage
 ```
 
 ### WorkRecord

@@ -19,12 +19,12 @@ public class AuthService {
 
     public User signin(String id, String password){
         User user = userRepo.findById(id).orElseThrow(
-                ()->new IllegalArgumentException("사용자를 찾을 수 없습니다")
+                ()->new IllegalArgumentException("아이디가 존재하지 않거나 비밀번호가 틀립니다")
         );
         if(passwordEncoder.matches(password,user.getPassword())){
             return user;
         }else{
-            throw new IllegalArgumentException("비밀번호가 틀립니다");
+            throw new IllegalArgumentException("아이디가 존재하지 않거나 비밀번호가 틀립니다");
         }
     }
 }
